@@ -6,9 +6,10 @@ from flight.serializer_flights import FlightSerializer
 import string
 import random
 from dateutil import parser
+from decouple import config
 list_reservation_flights=[]
 params={
-      "api_key":"ae8b0609cf2e9a717bead942e12fbe2930602873ad2dfcbddd68e68ea539abd2",
+      "api_key":config('API_KEY'),
       "engine":"google_flights",
       "arrival_id":"FNC"}
 # Create your views here.
