@@ -1,0 +1,18 @@
+{% extends "app/base.html" %}
+{% load custom_filters %}
+{% block content %}
+<div class="container_main">
+<div class="container-flex">
+    <div class="cover_media">
+     <h4>MALA RESORT!</h4>
+    </div>
+    <div class="wrapper_frm-acc">
+     {% block login_form %}
+    {% endblock%}
+
+        {% block register_form %}
+      {% endblock%}
+     </div>
+</div>
+</div>
+{% endblock content %}

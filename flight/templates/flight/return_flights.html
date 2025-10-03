@@ -1,0 +1,13 @@
+{% extends 'flight/base_flight.html' %}
+
+{% block return_flight %}
+<div>RETURN FLIGHT</div>
+{% endblock %}
+
+{% block return_flight_link %}
+  <div>
+    <a href="{% url 'get_return_flights' forloop.counter0 %}">
+           return
+      </a>
+  </div>
+ {% endblock %}

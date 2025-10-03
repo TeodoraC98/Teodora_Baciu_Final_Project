@@ -1,0 +1,123 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mala</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'app/css/style.css'%}">
+  </head>
+<body>
+    <header class="site-header">
+    
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+  <a class="navbar-brand mr-4" href="{% url 'index'%}">
+          MALA</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li >
+          <a class="nav-link" href="{% url 'index' %}">Home</a>
+        </li>
+         <li >
+          <a class="nav-link" href="{% url 'strat_reservation' %}">Reservation</a>
+        </li>
+       
+          <li >
+          <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+        </li>
+          <li>
+          <a class="nav-link" href="{% url 'register'%}">Register</a>
+        </li>
+       {% if user.is_authenticated %}
+        <form action="{% url 'logout' %}" method="post">
+              {% csrf_token %}
+              <button class="btn-logout nav-link" type="submit">Log Out</button>
+            </form>
+       {% else %}
+        <li>
+          <a class="nav-link" href="{% url 'login'%}">Log in</a>
+        </li>
+       {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+</div>
+    </header>
+  {% block content %}
+  {% endblock %}    
+<div class="footer_container">
+
+  <footer>
+        
+    <div class="container-footer p-4 pb-0">
+      <section >
+      
+        <div class="row">
+          <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">
+            Welcome to Mala
+            </h6>
+            <p>
+             Lorem ipsum dolor sit amet, consectetur adipisicin
+              elit. Aspernatur omnis, quaerat id ea cum 
+             eum porro velit laudantium
+             
+            </p>
+          </div>
+          <hr class="w-100 clearfix d-md-none" />
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h6 class="mb-3 font-weight-bold">Contact</h6>
+            <p><i class="fas fa-home mr-3"></i> 3 Abbey St.S</p>
+            <p><i class="fas fa-envelope mr-3"></i> info@gmail.com</p>
+            <p><i class="fas fa-phone mr-3"></i> + 01 000 00 00</p>
+            <p><i class="fas fa-print mr-3"></i> + 01 111 11 11</p>
+          </div>
+          <div class="col-md-3 mx-auto mt-3">
+            <h6 class=" mb-3 font-weight-bold">
+             Links
+            </h6>
+            <p>
+              <a  href="#">Profile</a>
+            </p>
+            <p>
+              <a  href="#">Home</a>
+            </p>
+          </div>
+        
+          <hr class="w-100 clearfix d-md-none" />
+
+         
+        </div>
+       
+      </section>
+     
+      <hr class="my-3">
+
+      
+      <section class="p-3 pt-0">
+        <div class="row d-flex align-items-center">
+    
+          <div class="col-md-7 col-lg-8  text-md-start">
+            <div class="p-3">
+              © 2025 Copyright:
+              <p>mala@gmail.com</p>
+            </div>
+          </div>
+         
+        </div>
+      </section>
+    </div>
+  </footer>
+</div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+</body>
+</html>

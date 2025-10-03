@@ -1,0 +1,76 @@
+{% extends "app/base.html" %}
+{% block content %}
+<section class="reservation-sec">
+<div class="container-flex">
+ 
+  <div class="wrp">
+<form action="{% url 'strat_reservation' %}" method="post">
+  {% csrf_token %}
+  <div class="container">
+    <h4 class="subtitle">Thank you for choosing Mala!</h4>
+    <div class="row g-3 align-items-center m-1">
+      <div class="col-sm-10">
+        <span class="form-text">
+          Check in date
+        </span>
+        <input type="date" name='availability_room-check-in'
+         class="form-control" aria-describedby="passwordHelpInline"
+          min="2025-01-01" max="2026-01-01" required="True">
+      </div>
+    </div>
+    <div class="row g-3 align-items-center m-1">
+      <div class="col-sm-10">
+      <span class="form-text">
+        Check out date
+      </span>
+      <input type="date" name='availability_room-check-out' 
+      class="form-control" aria-describedby="passwordHelpInline"
+        min="2025-01-01" max="2026-01-01" required="True">
+    </div>
+    </div>
+  <div class="row g-3 align-items-center m-1">
+    <div class="col-sm-10">
+      <span class="form-text">
+        Number of people
+      </span>
+
+      <input type="number" name='nr_pers' class="form-control"
+       aria-describedby="passwordHelpInline" required="True">
+    </div>
+  </div>
+  <div class="row g-3 align-items-center m-1">
+  <div class="col-sm">
+  <span class="form-text">Would you like to book flights with Mala?</span>
+
+ <div class="row g-3 align-items-center m-1">
+  <div class="btn-group" role="group" aria-label="choose is reservation is with flights">
+    <input type="radio" class="btn-check btn-outline-secondary" name="btnradio" id="btnradio_yes" value="True" autocomplete="off" checked>
+    <label class="btn btn-outline-dark" for="btnradio_yes">Yes</label>
+    <input type="radio" class="btn-check  btn-outline-primary" name="btnradio" id="btnradio_no" value="False" autocomplete="off">
+    <label class="btn btn-outline-dark" for="btnradio_no">No</label>
+  </div>
+    </div>
+  </div>
+  </div>
+  <div class="row g-3 align-items-center m-1">
+    <span class="form-text"> Select departure airport</span>
+    <select class="form-select m-1" aria-label="Select departure airport" name="select_departure_airport" required>
+      {% for key, value in departure_airports.items %}
+      <option value={{key}}> {{value}}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="row g-3 align-items-center m-1 wrp_btn ">
+    <input class="btn btn-outline-secondary m-3" type="submit" value="See options" />
+  </div>
+  </div>
+</form>
+</div>
+ <div  class="cover_media">
+  <h4>
+      Reservation information
+  </h4>
+</div>
+</div>
+</section>
+{% endblock content %}

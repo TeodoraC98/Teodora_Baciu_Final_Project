@@ -1,0 +1,98 @@
+{% extends "app/base.html" %}
+{% block content %}
+<div class="wrp-banner cover">
+  <h4 class=" m-4">Please check the booking informations</h4>
+</div>
+<div>
+  {% if has_flights %}
+  <div>
+    {% for details_rout in context_flight_details %}
+    <div class="wrp_detail-fl">
+      <div>Reservation number: {{details_rout.0.reservation_flight}}</div>
+      <div>Price: ${{details_rout.0.reservation_flight.price}}</div>
+      <table class="table tb-flights bg-dark ">
+        <thead>
+          <tr class="tb-flights">
+            <th scope="col">#</th>
+            <th scope="col">Flight nr</th>
+            <th scope="col flex_ct">
+              <span class="material-symbols-outlined">
+                flight_takeoff
+              </span>
+              Departure
+            </th>
+            <th scope="col flex_ct">
+              <span class="material-symbols-outlined">
+                flight_land
+              </span>Arrival
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for flights in details_rout %}
+
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{flights.flight.flight_number}}</td>
+            <td>
+              <div>
+
+                <div>
+                  {{flights.flight.departure_airport}}
+                </div>
+                <div>
+                  {{flights.flight.departure_date}}
+                </div>
+              </div>
+            </td>
+            <td>
+              <div>
+                <div>
+                  {{flights.flight.arrival_airport}}
+                </div>
+                <div>
+                  {{flights.flight.arrival_date}}
+                </div>
+              </div>
+            </td>
+          </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    {% endfor%}
+  </div>
+    <h5>Passengers details</h5>
+        <div class="flex_ct wrp_detail-fl">
+
+      {% for passenger in passangers %}
+      <div>
+      <h6>Passenger {{forloop.counter}}</h6>
+      <div> Name: {{passenger.first_name}}-{{passenger.last_name}}</div>
+      <div>Nationality: {{passenger.nationality}}</div>
+      <div>Date of birth: {{passenger.date_of_birth}}</div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  <div class="flex_ct wrp_detail-fl">
+    <div>
+      <h5>Booking details: <small>{{booking.nr_reservation}}</small></h5>
+      <div>Period: {{booking.check_in}} to {{booking.check_out}}</div>
+      <div>Days: {{booking.nr_days}} days</div>
+      <div>Number of people: {{booking.nr_person}}</div>
+      <div>Days: {{booking.nr_days}}</div>
+      <div>Room number: {{booking.room.room_number}}</div>
+      <div>Room type: {{booking.room.room_type.name}}</div>
+      <div>Total: {{booking.amount}}</div>
+    </div>
+  </div>
+</div>
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Confirm details">
+</form>
+
+{% endblock content %}

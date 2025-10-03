@@ -1,0 +1,108 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% load custom_filters %}
+{% block content %}
+  <div class="wrp-banner cover">
+<h4 class=" m-4">JUST A FLY AWAY</h4>
+</div>
+<div class="container_main" >
+
+   {% block type_flight_block %}
+   {% endblock %}
+   {% if instances_flights|length > 0%}
+
+  <ul>
+
+   {% for items in instances_flights %}
+   
+ 
+   <li>
+        {% block departure_flight_link %}
+              {% endblock %}
+
+        {% block return_flight_link %}
+               {% endblock %}
+       <div class="container_info-flight">
+      <div >
+
+              <div>Price :${{items.price}}</div>
+               <div>Flight duration {{items.total_duration|divide_hour:60}}h {{items.total_duration|divide_minuts:60}}min</div>
+                <div>{{ items.layovers|length }} stops </div>
+          </div>
+      <div>
+      
+       {% if items.flights|length == 1 %}
+          <div class="airline_logo">  
+        <div class="flight_details_wrapper">
+          <div>
+         <div class="general_detail">
+          </div>
+           <img src="{{items.flights.0.airline_logo}}" alt="Flight airline logo">
+        </div>
+      <div class="departure_flight">
+         <div>{{items.flights.0.departure_airport.name}}</div>
+         <div>{{items.flights.0.arrival_airport.name}}</div>
+      </div>
+              <div class="arrival_flight">
+                <small>
+                  {{flight.arrival_airport.time| date }}            
+                </small>
+              </div>
+       </div>
+      </div>
+        {% else %}
+
+        <div class="container_flight">
+        {% for flight in items.flights  %}
+         <div class="flight_details_wrapper">
+          <div class="airline_logo">  
+           <img src="{{flight.airline_logo}}" alt="Flight airline logo">
+        </div>
+         <div>
+        <div class="departure_flight">
+
+         <div> {{flight.departure_airport.name}} </div>
+          Icon Family Classic Select an Icon Style
+         <i class="fa-solid fa-arrow-right"></i>
+         <div> {{flight.arrival_airport.name}}</div>
+      </div>
+        <div class="arrival_flight">
+             <small>
+                  {{flight.arrival_airport.time| date }}            
+             </small>
+              </div>
+       </div>
+      </div>
+       {% if items.layovers|length > forloop.counter0  %}
+       <div  class="flight_details_wrapper transfer_sec">
+          
+       
+        <span class="material-symbols-outlined">connecting_airports</span>
+        <div>
+          <div><small>Stop {{ forloop.counter }} in {{items.layovers|get_name_by_index:forloop.counter0}}</small></div>
+         <div> <small>Duration: {{items.layovers|get_duration_by_index:forloop.counter0|divide_hour:60}} h
+            {{items.layovers|get_duration_by_index:forloop.counter0|divide_minuts:60}} min  </small> </div>
+        </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+          {%endif%}
+          </div>
+       </div>
+      </div>
+              <!-- <input type="hidden" value="{{forloop.counter0}}"  name="item"/>
+              <input  type="submit" value="Return flight"  class="btn btn-sm btn-default pull-right"/>
+            </form> -->
+   
+    </li>
+   {% endfor %}
+  </ul>
+</div>
+{% else %}
+  <div>Sorry, we have no results for the selected flights, please try another option!
+
+  </div>
+  {% endif %}
+</div>
+{% endblock content %}
+     

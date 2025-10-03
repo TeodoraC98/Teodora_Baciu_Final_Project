@@ -1,0 +1,26 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% load custom_filters %}
+{% block content %}
+<div class="wrp-banner cover">
+<h4 class=" m-4">WE TAKE CARE OF YOUR INFORMATION</h4>
+</div>
+<div class="container_main">
+<form  enctype="multipart/form-data"  method="POST">
+<div >
+      {% csrf_token %}
+      {{ form_passenger_set.management_form }}
+      {%for form in form_passenger_set%}
+      <div>
+        <h5>Passenger {{forloop.counter}}</h3>
+        {{form}}
+      </div>
+      <!-- {{form_passenger_set}} -->
+      {%endfor%}
+  <div>
+    <input  type="submit" value="Save inormation"  class="btn btn-sm btn-default pull-right"/>
+</div>
+</div>
+</form>
+</div>
+{% endblock %}

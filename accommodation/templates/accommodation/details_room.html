@@ -1,0 +1,126 @@
+{% extends "app/base.html" %}
+{% load custom_filters %}
+{% block content %}
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="/media/hotel1.jpg" class="d-block w-100" alt="image Mala resort">
+    </div>
+    <div class="carousel-item">
+      <img src="/media/hotel2.jpg" class="d-block w-100" alt="image Mala resort">
+    </div>
+    <div class="carousel-item">
+      <img src="/media/madeira1.jpg" class="d-block w-100" alt="image Mala resort">
+    </div>
+      <div class="carousel-item">
+      <img src="/media/madeira2.jpg" class="d-block w-100" alt="image Mala resort">
+    </div>
+      <div class="carousel-item">
+      <img src="/media/madeira3.jpg" class="d-block w-100" alt="image Mala resort">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+<div class="container_main">
+   <section class="main-sc m-4">
+  <div class="wrp-aside">
+    <aside>
+      <div class="wrp_aside-img">
+        <img src="/media/hotel2.jpg" alt="aside hotel mala image">
+      </div>
+            <div class="m-2 p-2"><h6>Reservation details:</h6>
+      <div>
+        <small>Check in: </small>
+        <small>{{booking.check_in}}</small>
+      </div>
+       <div>
+        <small>Check out:</small>
+        <small>{{booking.check_out}}</small>
+      </div>
+       <div>
+        <small>Nights:</small>
+        <small>{{booking.nr_days}} nights</small>
+      </div>
+       <div>
+        <small>Adults:</small>
+        <small>{{booking.nr_person}} </small>
+      </div>
+    </div>
+    <div class="m-2 p-2">
+    <h6>Room details:</h6>
+    <div>
+      <small>Room number: {{room.room_number}}</small>
+    </div>
+    <div>
+      <small>Price: ${{room.price}} per night</small>
+    </div>
+    <div>
+      <small>Room capacity: {{room.room_capacity}} adults</small>
+    </div>
+  </div>
+  <div class="m-2 p-2">Yout total staying is: 
+    ${{room.price|multiply:reservation.booking.nr_days}}
+  </div>
+   </aside>
+  </div>
+  <div class="wrp_main">
+<div>
+   <div  class="m-2 p-2">
+        <h4> {{room.room_type.name}}</h4>
+    </div>
+<div  class="m-1 p-1">{{room.description}}</div>
+</div>
+<form method="post">
+     {% csrf_token %}
+<div class="container_package">
+   {% for package in packages %}
+     <div class="wrapper_package">
+        <h5>{{package.name}}</h5>
+        <div>
+            ${{reservation.booking.nr_days|multiply:package.price}}/pp
+        </div>
+        <div>
+           Days: {{reservation.booking.nr_days}}
+        </div>
+        <div>
+          {% if package.is_refundable %}
+          <div> The package is refundable if cancellation is made at least one month in advance.</div>
+          {% else %}
+          <div>This package is not refundable.</div>
+          {%endif%}
+        </div>
+        <div class="flex_container">
+          <div> 
+            {% for benefit in package.benefits.all %}
+            <h5>{{ benefit.name}}</h5>
+            {% if benefit.code == 'code1' %}
+            <ul>
+               {% for activity in benefit.description|list_activities %}
+               <li>{{activity}}</li>
+               {% endfor %}
+               </ul>
+               {% else %}
+            <div>{{ benefit.description}}</div>
+             {%endif%}
+            {% endfor %}
+          </div>
+    
+        </div>
+        <div> 
+          <input type="hidden" value="{{package.id}}" name="selected_package"/>
+          <input type="submit" value="select accommodation"/></div>
+        </div>
+</form>
+   {% endfor %}
+</div>
+</div>
+</section>
+</div>
+{% endblock content %}

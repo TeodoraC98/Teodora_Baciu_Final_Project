@@ -1,0 +1,41 @@
+{% extends "users/base_account.html" %}
+{% block register_form %}
+>
+<div class="content-section-register">
+  <form method="POST">
+    {% csrf_token %}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4 subtitle">Welcome to Mala Resort!</legend>
+      {%for field in user_form %}
+      <div class="form-group row mt-2">
+        <label class="col-sm-3 col-form-label lb-input">{{field.label}}</label>
+        <div class="col-sm-9">
+          <div>
+            {{field}}
+          </div>
+          <div> {{field.errors}}</div>
+        </div>
+      </div>
+      {% endfor%}
+    </fieldset>
+
+    <div class="wrp_btn">
+      <button class="btn btn-outline-secondary m-1 bt" type="submit">Sign Up</button>
+    </div>
+  </form>
+  <div class="col-md-8">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+      {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+
+  </div>
+  <div class="border-top pt-3"></div>
+  <small class="text-muted">
+    Already hava an account? <a class="ml-2 link" href="{% url 'login' %}">Sign In</a>
+  </small>
+</div>
+{% endblock %}

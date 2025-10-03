@@ -1,0 +1,46 @@
+{% extends 'users/base_account.html' %}
+{% block login_form %}
+<div class="content-section mt-5">
+   <div class="">
+    {% if next %}
+    {% if user.is_authenticated %}
+      <p>This page is restricted. Please login with an account that has access.</p>
+    {% else %}
+      <p>Please login!  .</p>
+    {% endif %}
+    {% endif %}
+    <form method="POST">  
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-1 subtitle">WELCOME TO MALA RESORT</legend>
+           {% for field in login_form %}
+            <div class="form-group row">
+               <label class="col-sm-2 col-form-label m-1 lb-input">{{field.label }}</label>
+                <div class="col-sm-10">
+                <div>
+                       {{field }}
+                </div>
+                <div>  {{field.errors}}</div>
+             </div>
+             </div>
+            {% endfor%}
+            {% for message in messages %}
+    
+           <div class="alert alert-success">
+           {{ message }}
+          </div>
+         {% endfor %}
+          <div class="wrp_btn">
+            <button class="btn btn-outline-secondary m-1 bt" type="submit">Sign In</button>
+        </div>
+        </fieldset>
+    </form>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+           Do you want to register? <a class="ml-2 link" href="{% url 'register' %}">Sign Up</a>
+        </small>
+    </div>
+   </div>
+   </div>
+{% endblock %}
+    

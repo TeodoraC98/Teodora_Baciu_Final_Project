@@ -1,0 +1,24 @@
+{% extends "app/base.html" %}
+{% load custom_filters %}
+{% block content %}
+<h1>DASHBORD</h1>
+<div>
+  
+  {% for booking in bookings%}
+ <a href="{% url 'details_booking' booking.id  %}">
+   <div class="flex_ct wrp_detail-fl">
+    <div>
+      <h5>Booking details: <small>{{booking.nr_reservation}}</small></h5>
+      <div>Period: {{booking.check_in}} to {{booking.check_out}}</div>
+      <div>Days: {{booking.nr_days}} days</div>
+      <div>Number of people: {{booking.nr_person}}</div>
+      <div>Days: {{booking.nr_days}}</div>
+      <div>Room number: {{booking.room.room_number}}</div>
+      <div>Room type: {{booking.room.room_type.name}}</div>
+      <div>Total: {{booking.amount}}</div>
+    </div>
+  </div>
+</a>
+{% endfor %}
+</div>
+{% endblock content %}

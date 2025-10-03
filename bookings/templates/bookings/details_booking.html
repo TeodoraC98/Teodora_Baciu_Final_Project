@@ -1,0 +1,104 @@
+{% extends "app/base.html" %}
+{% block content %}
+<div class="wrp-banner cover">
+  <h4 class=" m-4">Please check the booking informations</h4>
+</div>
+<div>
+  {% if booking.has_flights %}
+   {% for reservation in reservation_flights %}
+   {% for keys,value in context_flight_details.items%}
+         {% if keys == reservation.nr_reservation %}
+      <div>Reservation number: {{reservation.nr_reservation}}</div>
+      <div>Price: ${{reservation.price}}</div>
+        <table class="table tb-flights bg-dark ">
+        <thead>
+          <tr class="tb-flights">
+            <th scope="col">#</th>
+            <th scope="col">Flight nr</th>
+            <th scope="col flex_ct">
+              <span class="material-symbols-outlined">
+                flight_takeoff
+              </span>
+              Departure
+            </th>
+            <th scope="col flex_ct">
+              <span class="material-symbols-outlined">
+                flight_land
+              </span>Arrival
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+           {% for item in value%} 
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{item.data.flight.flight_number}}</td>
+            <td>
+              <div>
+                  
+                <div>
+                  {{item.data.flight.departure_airport}}
+                </div>
+                <div>
+                  {{item.data.flight.departure_date}}
+                </div>
+              </div>
+            </td>
+            <td>
+              <div>
+                <div>
+                  {{item.data.flight.arrival_airport}}
+                </div>
+                <div>
+                  {{item.data.flight.arrival_date}}
+                </div>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+        
+         {% endif %}
+           {% endfor %}
+   {%endfor%}
+  <div>
+  </div>
+    <h5>Passengers details</h5>
+        <div class="flex_ct wrp_detail-fl">
+
+      {% for passenger in passangers %}
+      <div>
+      <h6>Passenger {{forloop.counter}}</h6>
+      <div> Name: {{passenger.first_name}}-{{passenger.last_name}}</div>
+      <div>Nationality: {{passenger.nationality}}</div>
+      <div>Date of birth: {{passenger.date_of_birth}}</div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  <div class="flex_ct wrp_detail-fl">
+    <div>
+      <h5>Booking details: <small>{{booking.nr_reservation}}</small></h5>
+      <div>Period: {{booking.check_in}} to {{booking.check_out}}</div>
+      <div>Days: {{booking.nr_days}} days</div>
+      <div>Number of people: {{booking.nr_person}}</div>
+       <div>Ststus: {{booking.status}}</div>
+      <div>Room number: {{booking.room.room_number}}</div>
+      <div>Room type: {{booking.room.room_type.name}}</div>
+      <div>Total: {{booking.amount}}</div>
+    </div>
+  </div>
+</div>
+<div>
+  {% if booking.status == 'Cancel' %}
+  <a href="{% url 'cancel_booking' booking.id %}" style="pointer-events: none;">CANCELED</a>
+  {%else%}
+   <a href="{% url 'cancel_booking' booking.id %}">CANCEL BOOKING</a>
+   {%endif%}
+
+   <form action="cancel_booking">
+    <input type="submit" value="DELETE BOOKING">
+  </form>
+</div>
+{% endblock content %}

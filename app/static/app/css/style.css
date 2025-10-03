@@ -1,0 +1,491 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap");
+
+:root{
+--color-body: rgb(248, 240, 240)
+--bs-dark: #212529;
+--header-hight: 5rem;
+  --orange-color: #d45827;
+  --light-orange-color: rgb(250, 133, 86);
+  --dark-orange: rgb(243, 101, 35);
+  --black-color: hsl(210, 6%, 7%);
+  --dark-blue: hsl(229, 88%, 29%);
+  --gray-color: #585858;
+  --light-gray: #7c7a7a;
+  --light-black-color: hsl(225, 4%, 21%);
+  --white-color: #ffff;
+  --body-color: hsl(220, 100%, 97%);
+  --hover-white: rgb(240, 232, 224);
+  --paragraf-text-color: hsl(19, 32%, 12%);
+  --body-font: "Times New Roman", Times, serif;
+  --font-family-title: "DM Serif Text", serif;
+  --normal-font-size: 1.15rem;
+  --small-font-size: 0.925rem;
+  --large-font-size: 1.75rem;
+  --xlarge-font-size: 2.25rem;
+  --font-size-title: clamp(1.55rem, 1.95rem, 2.45rem);
+  --font-size-subtitle: clamp(1.25rem, 1.55rem, 1.95rem);
+  --line-height: 1.575rem;
+  --line-height-title: 2.125rem;
+  --line-height-subtitle: 1.7rem;
+  --letter-spacing-normal: 0.25px;
+  --leter-spacing-title: 1px;
+  --leter-spacing-subtitle: 0.65px;
+  --word-spacing: 1px;
+  --wold-spacing-title: 0.5rem;
+
+  --font-regular: 400;
+  --font-semi-bold: 600;
+  --font-bold: 900;
+  --z--tooltip: 10;
+  --z-fixed: 100;
+}
+.container_main{
+  max-width: 80vw;
+  margin-inline: auto;
+}
+.container_info-flight{
+background-color:var(--color-body);
+ border: 2px solid white;
+padding: 1rem;
+margin: 1rem;
+}
+.container_info-flight:hover{
+   border:2px solid rgb(90, 90, 90);
+}
+body{
+    background-color: var(--color-body)
+}
+a{
+text-decoration: none;
+color: black;}
+li{
+    text-decoration: none;
+    list-style:none;
+}
+a:hover{
+    color: rgb(143, 142, 142);}
+/* -------------------------banner--------------------- */
+.wrp-banner{
+    background-image: url(/media/cover_img.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: left bottom;
+    filter: brightness(70%);
+    width: 100%;
+    height: 15rem;
+    margin-block: 2rem;
+    max-height: 30rem;
+    color: white;
+}
+.cover{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cover h4{
+    position: relative;
+    font-family:'Courier New', Courier, monospace;
+    font-size: 2rem;
+    font-weight: 400;
+    padding: 1rem;
+    color: black;
+    z-index: 1;
+}
+.cover h4::after{
+position:absolute;
+content: "";
+top: 0;
+bottom: 0;
+left: 0;
+right: 0;;
+background-color: rgb(242, 246, 250);
+opacity: 0.65;
+z-index: -1;
+}
+/* -------------main section------------- */
+.wrp_main{
+    margin: 1rem;
+}
+.main-sc{
+    display: flex;
+    position: relative;
+  gap: 1rem;
+}
+.wrp-aside{
+    width: 30rem;
+    background-color: var(--color-body);
+    border:1px solid rgb(197, 164, 164);
+    z-index: 99;
+    margin-right: 1rem;
+}
+ .wrp-aside aside{
+    margin: 0;
+    padding: 0;
+    position: -webkit-sticky;
+    top: 0;
+    min-width: 15rem ;
+    position: sticky;
+    height: 100vh;
+}
+.wrp_aside-img{
+    width: 100%;
+    max-height: 13rem;
+    overflow: hidden;
+}
+.wrp_aside-img img{
+    width: 100%;
+    object-fit: contain;
+}
+.container_flight{
+    padding: 0.5rem;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+}
+
+.flight_details_wrapper {
+    margin-left:1rem ;
+    display: flex;
+    gap: 1.23rem;
+}
+.flight_details_wrapper span{
+    font-size: 2.45rem;
+    transform: rotate(90deg);
+    opacity: 0.75;
+}
+.airline_logo{
+    margin-block: auto;
+    align-items: center;
+}
+.airline_logo img{
+    font-size: 2rem;
+    max-width: 3rem;
+}
+.transfer_sec{
+    border-block: 4px double rgb(163, 163, 163) ;
+}
+
+/* ---------------carousel---------------------- */
+#carouselExampleIndicators{
+    max-height: 75vh;
+    overflow: hidden;
+
+}
+.carousel-item img{
+    filter: brightness(85%);
+    object-fit: cover;
+}
+/* --------details room------------------ */
+.flex_ct, 
+.container_package{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 1rem;
+}
+.wrapper_package{
+    min-width: 15rem;
+    flex-grow: 1;
+    border: double 4px black;
+    padding: .77rem;
+}
+.container-flex{
+    min-height: 80vh;
+    margin: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    position: relative;
+   
+}
+.container-flex::after{
+    position: absolute;
+    bottom: -1.05rem;
+    left: -1.05rem;
+    content: " ";
+    width: 10rem;
+    height: 10rem;
+    border-bottom: 8px double  rgb(236, 194, 188);
+    border-left: 8px double  rgb(236, 194, 188);
+    z-index: -1;
+
+}
+
+.container-flex::before{
+    position: absolute;
+    top: -1.05rem;
+    right: -1.05rem;
+    content: " ";
+    width: 10rem;
+    height: 10rem;
+    border-top: 8px double  rgb(236, 194, 188);
+    border-right: 8px double  rgb(236, 194, 188);
+    z-index: -1;
+
+}
+.cover_media{
+
+    min-height: 20rem;
+    display: flex;
+    background-image: url("/media/madeira1.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: left bottom;
+    justify-content: center;
+    align-items:center;
+    filter: brightness(80%);
+    color: rgb(238, 230, 230);
+    flex-grow: 1;
+}
+ 
+.cover_media h4{
+    position: relative;
+    font-family:'Courier New', Courier, monospace;
+    font-size: 2rem;
+    font-weight: 400;
+    padding: 1rem;
+    color: black;
+      z-index: 1;
+}
+
+.cover_media h4::after{
+position:absolute;
+content: "";
+top: 0;
+bottom: 0;
+left: 0;
+right: 0;
+background-color: rgb(242, 246, 250);
+opacity: 0.45;
+z-index: -1;
+}
+.wrapper_frm-acc, .wrp{
+    justify-content: center;
+     flex-grow: 1;
+     padding: 1rem;
+     margin-left: 1rem;
+     border: 1px solid rgb(202, 195, 195);
+     background-color: var(--color-body);
+     max-width: 30rem;
+   
+}
+.wrapper_frm-acc input,
+.wrapper_frm-acc input:focus,
+.wrapper_frm-acc input::placeholder
+ {
+background-color: var(--color-body);
+color: black;
+}
+.frm-input{
+    color: blue;
+}
+/* @media (min-width: 768px) { 
+    .container-flex{
+    
+ } */
+  .subtitle{
+    font-family: 'Courier New', Courier, monospace;
+  }
+  .lb-input{
+     font-family:Verdana, Geneva, Tahoma, sans-serif
+  }
+   .bt{
+    width: 80%;
+    padding: 0.25rem;
+   }
+   .bt:hover{
+    background-color: rgb(19, 18, 18);
+   }
+   .wrp_btn{
+    display: flex;
+    margin: 2rem;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+   }
+   .col-sm-10{
+    width: 100%;
+   }
+   .reservation-sec .container-flex{
+    justify-content: center;
+   }
+.reservation-sec .wrp{
+        flex-grow: 1;
+        max-width: 40rem;
+        align-self: center;
+        border:none;
+    }
+.reservation-sec .cover_media{
+    flex-grow: 1;
+
+}
+.tb-flights{
+    background-color:var(--color-body);
+}
+
+
+
+/* ------------------------------------------index page--------------------------------- */
+.banner {
+  height: 80vh;
+  max-height: 80vh;
+  width: 100%;
+  z-index: -1;
+  position: absolute;
+  inset: 0;
+}
+
+.wrapper_img_banner {
+  background-image: url("/media/cover.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 100% 50%;
+    -webkit-filter: grayscale(95%); 
+  filter: grayscale(95%);
+ 
+}
+.container_banner{
+width: 100vw;
+height: 80vh;
+position: relative;
+}
+.container__title-header {
+  z-index: 10;
+  color: var(--white-color);
+  text-shadow: 3px 3px 4px var(--gray-color);
+  text-align: center;
+}
+.wrp_detail-fl{
+border: 4px double black;
+margin: 1rem;
+padding: 0.5rem;
+}
+.title{
+ font-family: var(--font-family-title);
+  line-height: var(--line-height-title);
+  word-spacing: var(--wold-spacing-title);
+  letter-spacing: var(--leter-spacing-title);
+  
+}
+.container_header_content {
+  position: relative;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.container_small_imgs-banner {
+  flex-shrink: 0;
+  z-index: 0;
+  width: clamp(17rem, 30rem, 100%);
+  height: clamp(17rem, 19rem, 25rem);
+  display: grid;
+  grid-template-columns: repeat(28, 1fr);
+  grid-template-rows: repeat(26, 1fr);
+  transition: min-width 0.2s ease-in, min-height 0.2s ease-in-out;
+  margin-right: 5rem;
+  align-self: flex-end;
+}
+.small-img{
+    filter: brightness(94%);
+  position: relative;
+  background-color: #242424;
+}
+.img1:hover {
+  transform: scale(1.85);
+  z-index: 100;
+}
+.img2:hover {
+  transform: scale(1.7);
+  z-index: 100;
+}
+.img3:hover {
+  transform: scale(1.5);
+  z-index: 100;
+}
+.img4:hover {
+  transform: scale(1.3);
+  z-index: 100;
+}
+.img1 {
+
+  grid-column-start: 2;
+  grid-column-end: 18;
+  grid-row-start: 8;
+  grid-row-end: 24;
+  background-image: url("/media/hotel1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  clip-path: polygon(50% 0, 0% 100%, 100% 100%);
+}
+.img2 {
+  background-color: #242424;
+  background-image: url("/media/hotel2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+  grid-column-start: 10;
+  grid-column-end: 21;
+  grid-row-start: 5;
+  grid-row-end: 16;
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+}
+.img3 {
+  background-color: #242424;
+  grid-column-start: 17;
+  grid-column-end: 26;
+  grid-row-start: 19;
+  grid-row-end: 27;
+  background-image: url("/media/madeira2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center left;
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+}
+.img4 {
+  background-color: #242424;
+  grid-column-start: 17;
+  grid-column-end: 28;
+  grid-row-start: 17;
+  grid-row-end: 7;
+  background-image:url("/media/madeira3.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 60% 0;
+  clip-path: polygon(50% 0, 0% 100%, 100% 100%);
+}
+.sc-main{
+    min-height: 100vh;
+}
+
+.wrp-imgs{
+  height: 100%;
+   max-width: 50rem;
+}
+.intro_about{
+  max-width: 30rem;
+}
+.sc_about_us .container-flex{
+ align-items: center;
+ justify-content: space-around;
+ height:fit-content;
+ padding: 1rem;
+}
+p{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+ @media (min-width:1100px) { 
+    .cover_media{
+    max-width: 40vh;
+    min-width: 50rem;
+    width: 50vw;
+    }
+    .reservation-sec .cover_media{
+        max-width: 100%;
+    }
+    .reservation-sec .wrp{
+    flex-grow: 0;
+    max-width: 30rem;
+}
+ }

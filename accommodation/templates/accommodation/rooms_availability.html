@@ -1,0 +1,55 @@
+{% extends "app/base.html" %}
+{% block content %}
+<div class="wrp-banner cover">
+<h4 class=" m-4">Make your holiday special at Mala</h4>
+</div>
+<div class="container_main">
+<section class="main-sc">
+  <div class="wrp-aside">
+    <aside>
+      <div>
+      <div class="wrp_aside-img">
+        <img src="/media/hotel2.jpg" alt="aside hotel mala image">
+      </div>
+            <div class="m-2 p-2"><h6>Reservation details:</h6>
+      <div>
+        <small>Check in: </small>
+        <small>{{booking.check_in}}</small>
+      </div>
+       <div>
+        <small>Check out:</small>
+        <small>{{booking.check_out}}</small>
+      </div>
+       <div>
+        <small>Nights:</small>
+        <small>{{booking.nr_days}} nights</small>
+      </div>
+       <div>
+        <small>Adults:</small>
+        <small>{{booking.nr_person}} </small>
+      </div>
+    </div>
+  </div>
+   </aside>
+  </div>
+
+<div class="flex_ct">
+{% for available_room in rooms %}
+<a href="{% url 'details_room' available_room.id  %}">
+<div class="card" style="width: 20rem;">
+  <img src="/media/hotel1.jpg" class="card-img-top" alt="Hotel Mala picture">
+  <div class="card-body">
+    <h5 class="card-title subtitle">Mala Hotel - <small>{{available_room.room_type.type}}</small></h5>
+    <small>{{available_room.description }}</small>
+    <ul class="list-group list-group-flush">
+         <li class="list-group-item">Room number: {{available_room.room_number}}</li>
+         <li class="list-group-item">${{available_room.price }} per day</li>
+       </ul>
+  </div>
+  </div>
+</a>
+{% endfor%}
+</div>
+</section>
+</div>
+{% endblock content %}

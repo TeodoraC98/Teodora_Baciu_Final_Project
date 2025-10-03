@@ -1,0 +1,64 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% load custom_filters %}
+{% block content %}
+<h4>  Complete the reservation</h4>
+<form>
+  <div class="form-group m-2">
+    <label for="firstNameRes">First name</label>
+    <input type="text" class="form-control" id="firstName" placeholder="First Name">
+  </div>
+  <div class="form-group m-2">
+    <label for="lastNameRes">Last name</label>
+    <input type="text" class="form-control" id="lastName" placeholder="Last Name">
+  </div>
+   <div class="form-group m-2">
+    <label for="emailRes">Email address</label>
+    <input type="email" class="form-control" id="emailRes" aria-describedby="emailHelp" placeholder="Email Adress">
+  </div>
+  <div class="form-group m-2">
+    <label for="contactNrRes">Contact number</label>
+    <input type="number" class="form-control" id="contactNrRes" aria-describedby="contactNumberHelp" placeholder="Contact number">
+  </div>
+  <div class="form-group m-2">
+    <label for="addressRes">Address</label>
+    <input type="text" class="form-control" id="addressRes" aria-describedby="addressHelp" placeholder="Address">
+  </div>
+    <div class="form-group m-2">
+    <label for="countryRes">Country</label>
+    <input type="text" class="form-control" id="contryRes" aria-describedby="contryHelp" placeholder="Contry">
+  </div>
+</form>
+{% if is_package_with_flights %}
+<form>
+
+ {% for traveller in nr_person|loop %}
+ <div class="m-4">
+  <div > <h4>
+    Traveller {{forloop.counter}}
+  </h4>
+     </div>
+  <div class="form-group m-2">
+    <label for="firstNametr{{forloop.counter}}">First name</label>
+    <input type="text" class="form-control" id="firstNameTr{{forloop.counter}}" placeholder="First Name">
+  </div>
+  <div class="form-group m-2">
+    <label for="lastNameTr{{forloop.counter}}">Last name</label>
+    <input type="text" class="form-control" id="lastName{{forloop.counter}}" placeholder="Last Name">
+  </div>
+  <div class="form-group m-2">
+    <label for="lastNameTr{{forloop.counter}}">Nationality</label>
+    <input type="text" class="form-control" id="nationalityTr{{forloop.counter}}" placeholder="Nationality">
+  </div>
+   <div class="form-group m-2">
+    <label for="dateBirthTr{{forloop.counter}}">Date of birth</label>
+    <input type="text" class="form-control" id="dateBirthTr{{forloop.counter}}" placeholder="YYYY/MM/DD">
+  </div>
+</div>
+{% endfor%}
+<div>
+    <input value="Save information"/>
+</div>
+</form>
+{% endif%}
+{% endblock %}
