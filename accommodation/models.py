@@ -40,6 +40,7 @@ class Room(models.Model):
         if new_price >0:
             self.price=new_price
             self.save()
+  
     
     def get_rooms_available(list_id,nr_pers):
        print(type(nr_pers))

@@ -48,6 +48,7 @@ def get_departure_flight(request,index):
       get_flights_details(params)
       context={
       "instances_flights":context_flight[type_flight]}
+
       return render(request,"flight/return_flights.html",context=context)
 
 
@@ -81,12 +82,13 @@ def create_reservation_flight(nr_passangers,price):
                                          nr_passengers=nr_passangers,
                                          price=price,
                                          reservation=context_reservation_detail.get("booking"))
+    
     list_reservation_flights.append(reservation_flight)
     context_flight["reservation_flights"]=list_reservation_flights
     return reservation_flight
    except:
       print("An exception occurred")
-      return False
+      
 
 
 

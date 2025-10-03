@@ -82,8 +82,6 @@ def get_details_booking(request,id):
         else:context={
            "booking":booking}
         return  render(request,"bookings/details_booking.html",context=context)
-    else:
-       pass
 
 def cancel_booking(request,id):
    Reservation.cancel_booking(id)

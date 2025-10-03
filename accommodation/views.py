@@ -19,16 +19,20 @@ def check_availability_rooms(request):
 
 
 def details_room(request,id):
+    room=Room.objects.get(id=id)
+    packages=Package.get_packages_room_type(room.room_type)
     if request.method =='POST':
+      nr_days=context_reservation_detail["booking"].nr_days
       selected_package_id=request.POST.get("selected_package")
+      package_select=Package.objects.get(id=selected_package_id)
       context_reservation_detail["booking"].room_id=id
+      context_reservation_detail["booking"].package_selected=package_select
+      context_reservation_detail["booking"].amount=room.price*nr_days+package_select.price*nr_days
       if context_reservation_detail.get("is_package_with_flights"):
        return redirect('check_departure_flights',"other_flights")
       else:
         return redirect('payment')  
     else:
-        room=Room.objects.get(id=id)
-        packages=Package.get_packages_room_type(room.room_type)
         context={
          "room":room,
          "packages":packages,

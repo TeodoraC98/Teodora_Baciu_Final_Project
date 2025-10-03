@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from .models import Payment
+from bookings.models import Reservation
 import stripe
 stripe.api_key = settings.STRIPE_SECRET_KEY
 from bookings.views import context_reservation_detail,context_flight
@@ -19,77 +20,11 @@ def get_keys_reservation_flights(reservation_flights):
    for reservtion in reservation_flights:
       keys.append(reservtion.nr_reservation)
    return keys
-@login_required
-def get_payment_information(request):  
-   if request.method=='GET':
-      if context_reservation_detail.get("is_package_with_flights"):
-         context={
-         "booking":context_reservation_detail.get("booking"),
-         "context_flight_details":get_objects_details_flight( get_keys_reservation_flights(context_flight.get("reservation_flights"))
-                                    ,context_flight),
-          "reservation_flights":context_flight.get("reservation_flights"),
-          "passangers":context_reservation_detail.get("object_passengers"),
-          "has_flights":context_reservation_detail.get("is_package_with_flights")}
-         return  render(request,"payment/payment.html",context=context)
-      else:
-          context={
-         "booking":context_reservation_detail.get("booking"),
-         "has_flights":context_reservation_detail.get("is_package_with_flights")}
-          return  render(request,"payment/payment.html",context=context)
-   else:
-    DOMAIN = f"{request.scheme}://{request.get_host()}"
-    total=1000
+def set_total_booking(booking,resevation_flights):
+     for reservation_fl in resevation_flights:
+       booking.amount=booking.amount+reservation_fl.price
+    
   
-    checkout_session = stripe.checkout.Session.create(
-        line_items=[
-            {
-           
-                'price_data': {
-                    'product_data': {
-                        'name': 'Mala Hotel',
-                    },
-                    'unit_amount': total ,
-                    'currency': 'eur',
-                },
-                'quantity': 1,
-            },
-        ],
-        payment_method_types=['card'],
-        mode='payment',
-        success_url=DOMAIN + f'/dashboard/',
-        cancel_url=DOMAIN + f'/payment/cancel/',
-    )
-   payment=Payment(amount=total,
-                   type=checkout_session.payment_method_types,
-                   reservation=context_reservation_detail.get("booking"))
-   confirm_info_reservation(request) 
-   return redirect(checkout_session.url)
-
-
-def success_payment(request):
-    try:  
-      return render(request,'dashboard')
-    except Exception as e:
-       print(e)
-
-
-
-def cancel_payment(request):
-     # update status  from pending to cancel
-    try:
-   
-      return render(request,'payment/success.html')
-    except Exception as e:
-       print(e)
-
-def insert_payment(amount):
-   amount = amount
-   type ='card'
-   status ='pending'
-   payment = Payment(amount,status,type)
-   Payment.insert_payment_db(payment)
-   return payment
-
 
 def save_object_db_flights(reservations_flight):
     for reservation in reservations_flight:
@@ -124,14 +59,86 @@ def save_booking_datails_bd(user):
     list_passangers=context_reservation_detail.get("object_passengers")
     save_object_db_passengers(list_passangers,reservation_flights)
     save_object_db_flights( reservation_flights) 
-      # set_total_amount_reservation(booking,reservation_flights)
-   else:
-      pass
-      #  set_total_amount_reservation()
+   
+   
+def save_payment_db(reservation,amount,type):
+   try:
+    Payment.objects.create(amount=amount,
+                   type=type,
+                   reservation=reservation)
+   except:
+      print("Error saving payment in database")
+   
+
     
-def confirm_info_reservation(request):
+@login_required
+def get_payment_information(request):  
+   booking=context_reservation_detail.get("booking")
+   if request.method=='GET':
+      if context_reservation_detail.get("is_package_with_flights"):
+         flight_details=get_objects_details_flight( get_keys_reservation_flights(context_flight.get("reservation_flights"))
+                                    ,context_flight)
+         reservation_flights=context_flight.get("reservation_flights")
+         passangers=context_reservation_detail.get("object_passengers")
+         set_total_booking(booking,reservation_flights)
+         context={
+         "booking":booking,
+         "context_flight_details":flight_details,
+          "reservation_flights":reservation_flights,
+          "passangers":passangers,
+          "has_flights":context_reservation_detail.get("is_package_with_flights")}
+         return  render(request,"payment/payment.html",context=context)
+      else:
+          context={
+         "booking":context_reservation_detail.get("booking"),
+         "has_flights":context_reservation_detail.get("is_package_with_flights")}
+          return  render(request,"payment/payment.html",context=context)
+   else:
+    DOMAIN = f"{request.scheme}://{request.get_host()}"
+    total=int(booking.amount*100)
+  
+    checkout_session = stripe.checkout.Session.create(
+        line_items=[
+            {
+           
+                'price_data': {
+                    'product_data': {
+                        'name': 'Mala Hotel',
+                    },
+                    'unit_amount': total ,
+                    'currency': 'eur',
+                },
+                'quantity': 1,
+            },
+        ],
+        payment_method_types=['card'],
+        mode='payment',
+        success_url=DOMAIN + f'/payment/success_payment/',
+        cancel_url=DOMAIN + f'/payment/cancel_payment/',
+    )
    save_booking_datails_bd(request.user)
-   #   set_total_amount_reservation(booking,reservation_flight)
-   
-   
+   save_payment_db(booking,total, checkout_session.payment_method_types) 
+   return redirect(checkout_session.url,id)
+
+
+def success_payment(request):
+     # update status  from pending to paid
+   if request.method=='GET':
+    try:  
+       booking=context_reservation_detail.get("booking")
+       Payment.set_payment_paid(booking)
+    except Exception as e:
+       print(e)
+    return render(request,'payment/success.html')
+
+
+def cancel_payment(request):
+     # update status  from pending to cancel
+   if request.method=='GET':
+    try:
+      booking=context_reservation_detail.get("booking")
+      Payment.set_payment_cancel(booking)
+    except Exception as e:
+       print(e)
+   return render(request,'payment/cancel.html')
 
