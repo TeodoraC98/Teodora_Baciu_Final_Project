@@ -19,7 +19,7 @@ class RoomType(models.Model):
     room_view =  models.CharField(max_length=100)
     type = models.CharField(choices=TYPES_ROOMS)
     def __str__(self):
-        return self.type
+        return self.name
 
 
 class Room(models.Model):
