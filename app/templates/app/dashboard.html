@@ -1,10 +1,17 @@
 {% extends "app/base.html" %}
 {% load custom_filters %}
 {% block content %}
-<h1>DASHBORD</h1>
-<div>
-  
-  {% for booking in bookings%}
+<h1 class="subtitle flex_ct m-4">DASHBORD</h1>
+<div class="wrp_content">
+  {% if bookings|length == 0%}
+  <div class="subtitle flex_ct" >
+
+    You have not made any booking with us!
+    Wou
+  </div>
+      <div class="subtitle center">Would you like to make a <a href="{% url 'strat_reservation'%}">booking</a>?</div>
+    {% else %}
+     {% for booking in bookings%}
  <a href="{% url 'details_booking' booking.id  %}">
    <div class="flex_ct wrp_detail-fl">
     <div>
@@ -20,5 +27,7 @@
   </div>
 </a>
 {% endfor %}
+    {%endif%}
+
 </div>
 {% endblock content %}

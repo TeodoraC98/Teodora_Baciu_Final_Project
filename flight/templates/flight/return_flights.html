@@ -6,8 +6,8 @@
 
 {% block return_flight_link %}
   <div>
-    <a href="{% url 'get_return_flights' forloop.counter0 %}">
-           return
+    <a class="btn btn-outline-secondary m-1 link" href="{% url 'get_return_flights' forloop.counter0 %}">
+           RETURN FLIGHT
       </a>
   </div>
  {% endblock %}

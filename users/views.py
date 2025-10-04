@@ -1,13 +1,25 @@
 from django.shortcuts import render, redirect
 from .forms import UserRegisterForm, UserCustomLoginForm
+from .models import Costumer
+from django.contrib.auth.models import Group
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 def register(request):
     if request.method=='POST':
         user_register_form=UserRegisterForm(request.POST)
         if user_register_form.is_valid():
-            user=user_register_form.save()
-            # set group
+            username=request.POST['username']
+            email=request.POST['email']
+            first_name=request.POST['first_name']
+            last_name=request.POST['last_name']
+            contact_number=request.POST['contact_number']
+            date_of_birth=request.POST['date_of_birth']
+            password=request.POST['password1']
+            user=Costumer.objects.create_user(username=username,email=email,password=password,
+                                              first_name=first_name,last_name=last_name,
+                                              contact_number=contact_number,date_of_birth=date_of_birth)
+            user.save()
+            user.groups.add(Group.objects.get(name='Customer'))
             messages.success(request,f'Thank you for creating an account with us!')
             return redirect('login')
     else:

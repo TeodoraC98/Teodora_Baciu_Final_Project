@@ -106,10 +106,34 @@ z-index: -1;
 .wrp_main{
     margin: 1rem;
 }
+.wrp_content{
+  max-width: 60rem;
+  margin: auto;
+  padding: 1rem;
+  min-height: 30rem;
+}
+.wrp_links{
+  border-bottom: 4px double black;
+  display: flex;
+   justify-content: space-evenly;
+   font-size: x-large;
+}
+.center{
+  margin: auto;
+  text-align: center;
+}
 .main-sc{
     display: flex;
     position: relative;
   gap: 1rem;
+}
+.item{
+  display: block;
+  border:1px solid grey;
+  margin-top: 0.5rem;
+}
+.link{
+  display: block;
 }
 .wrp-aside{
     width: 30rem;

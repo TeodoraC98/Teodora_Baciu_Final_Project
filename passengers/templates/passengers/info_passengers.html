@@ -5,7 +5,7 @@
 <div class="wrp-banner cover">
 <h4 class=" m-4">WE TAKE CARE OF YOUR INFORMATION</h4>
 </div>
-<div class="container_main">
+<div class="container_main wrp_content">
 <form  enctype="multipart/form-data"  method="POST">
 <div >
       {% csrf_token %}
@@ -17,8 +17,8 @@
       </div>
       <!-- {{form_passenger_set}} -->
       {%endfor%}
-  <div>
-    <input  type="submit" value="Save inormation"  class="btn btn-sm btn-default pull-right"/>
+  <div class="btn btn-outline-secondary m-4 link">
+    <input  type="submit" value="SAVE INFORMATION"  class="btn btn-sm btn-default pull-right"/>
 </div>
 </div>
 </form>

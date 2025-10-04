@@ -65,20 +65,20 @@ class Reservation(models.Model):
        except:
           print("An exception has occurred when selecting the rooms!")
 
-    def cancel_booking(id):
+    def cancel_booking_nr_reservation(nr_reservation):
        try:
-          booking=Reservation.objects.get(id=id)
-          booking.status = 'Cancel'
+          booking=Reservation.objects.get(nr_reservation=nr_reservation)
+          booking.status ='Cancel'
           booking.save()
        except:
           print("ERORR CHANGHING STATUS BOOKING")
-    def confirm_booking(id):
+          
+    def confirm_bookin_nr_reservation(nr_reservation):
        try:
-          booking=Reservation.objects.get(id=id)
-          booking.status = booking.STATUS.CONFIRM
+          booking=Reservation.objects.get(nr_reservation=nr_reservation)
+          booking.status = 'Confirm'
           booking.save()
        except:
           print("ERORR CHANGHING STATUS BOOKING")
-
 
 

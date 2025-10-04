@@ -5,51 +5,42 @@
   <div class="wrp-banner cover">
 <h4 class=" m-4">JUST A FLY AWAY</h4>
 </div>
-<div class="container_main" >
+<div class="wrp_content">
 
    {% block type_flight_block %}
    {% endblock %}
-   {% if instances_flights|length > 0%}
+   {% if instances_flights|length > 0 %}
 
-  <ul>
+  <ul class="wrp_content">
 
    {% for items in instances_flights %}
    
  
-   <li>
-        {% block departure_flight_link %}
-              {% endblock %}
-
-        {% block return_flight_link %}
-               {% endblock %}
+   <li class="item">
+    
+        <div class="container_flight">
        <div class="container_info-flight">
-      <div >
+      <div>
 
               <div>Price :${{items.price}}</div>
                <div>Flight duration {{items.total_duration|divide_hour:60}}h {{items.total_duration|divide_minuts:60}}min</div>
                 <div>{{ items.layovers|length }} stops </div>
           </div>
-      <div>
-      
        {% if items.flights|length == 1 %}
-          <div class="airline_logo">  
-        <div class="flight_details_wrapper">
+       <div class="flight_details_wrapper">
+          <div class="airline_logo">
+            <img src="{{items.flights.0.airline_logo}}" alt="Flight airline logo">  </div>
           <div>
-         <div class="general_detail">
+       
           </div>
-           <img src="{{items.flights.0.airline_logo}}" alt="Flight airline logo">
+            <div class="general_detail">
         </div>
       <div class="departure_flight">
          <div>{{items.flights.0.departure_airport.name}}</div>
          <div>{{items.flights.0.arrival_airport.name}}</div>
-      </div>
-              <div class="arrival_flight">
-                <small>
-                  {{flight.arrival_airport.time| date }}            
-                </small>
-              </div>
+    
        </div>
-      </div>
+        </div>
         {% else %}
 
         <div class="container_flight">
@@ -86,23 +77,25 @@
         </div>
         {% endif %}
         {% endfor %}
-          {%endif%}
           </div>
+           {% endif %}
        </div>
       </div>
-              <!-- <input type="hidden" value="{{forloop.counter0}}"  name="item"/>
-              <input  type="submit" value="Return flight"  class="btn btn-sm btn-default pull-right"/>
-            </form> -->
-   
+     {% block departure_flight_link %}
+              {% endblock %}
+
+        {% block return_flight_link %}
+               {% endblock %}
     </li>
    {% endfor %}
   </ul>
 </div>
 {% else %}
-  <div>Sorry, we have no results for the selected flights, please try another option!
+  <div>
+    Sorry, we have no results for the selected flights,
+     please try another option!
 
   </div>
   {% endif %}
-</div>
 {% endblock content %}
      

@@ -3,7 +3,7 @@
 <div class="wrp-banner cover">
   <h4 class=" m-4">Please check the booking informations</h4>
 </div>
-<div>
+<div class="wrp_content">
   {% if booking.has_flights %}
    {% for reservation in reservation_flights %}
    {% for keys,value in context_flight_details.items%}
@@ -89,16 +89,18 @@
       <div>Total: {{booking.amount}}</div>
     </div>
   </div>
-</div>
-<div>
+  <div >
+  {% if  user.is_customer %}
   {% if booking.status == 'Cancel' %}
-  <a href="{% url 'cancel_booking' booking.id %}" style="pointer-events: none;">CANCELED</a>
+  <a  class="btn btn-outline-secondary m-4 link" href="{% url 'cancel_booking' booking.id %}" style="pointer-events: none;">CANCELED</a>
   {%else%}
-   <a href="{% url 'cancel_booking' booking.id %}">CANCEL BOOKING</a>
+   <a class="btn btn-outline-secondary m-4 link" href="{% url 'cancel_booking' booking.id %}">CANCEL BOOKING</a>
    {%endif%}
-
-   <form action="cancel_booking">
-    <input type="submit" value="DELETE BOOKING">
-  </form>
+ {% endif %}
+   {% if  perms.bookings.delete_booking %}
+    <a class="btn btn-outline-secondary m-4 link" href="{% url 'delete_booking' booking.id %}">DELETE</a>
+  {% endif %}
 </div>
+</div>
+
 {% endblock content %}

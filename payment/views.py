@@ -126,6 +126,7 @@ def success_payment(request):
    if request.method=='GET':
     try:  
        booking=context_reservation_detail.get("booking")
+       Reservation.confirm_bookin_nr_reservation(booking.nr_reservation)
        Payment.set_payment_paid(booking)
     except Exception as e:
        print(e)
@@ -137,6 +138,7 @@ def cancel_payment(request):
    if request.method=='GET':
     try:
       booking=context_reservation_detail.get("booking")
+      Reservation.cancel_booking_nr_reservation(booking.nr_reservation)
       Payment.set_payment_cancel(booking)
     except Exception as e:
        print(e)

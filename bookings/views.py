@@ -4,7 +4,7 @@ from flight.models import Reservation_Flight,DetailsRout,Flight
 from flight.serializer_flights import DetailsRoutSerializer
 from accommodation.models import RoomType,Room
 from django.contrib.auth.decorators import login_required
-from passengers.models import Passenger
+from payment.models import Payment
 from passengers.serializer_passenger import PassengerSerializer
 from datetime import datetime
 import string
@@ -84,11 +84,15 @@ def get_details_booking(request,id):
         return  render(request,"bookings/details_booking.html",context=context)
 
 def cancel_booking(request,id):
-   Reservation.cancel_booking(id)
+   reservation=Reservation.objects.get(id=id)
+   print(reservation)
+   Reservation.cancel_booking_nr_reservation(reservation.nr_reservation)
+   Payment.cancel_payment(reservation)
    return redirect('details_booking',id)
 
 def delete_booking(request,id):
-   print("delete")
+   reservation=Reservation.objects.get(id=id)
+   reservation.delete()
    return redirect('dashboard')
        
        

@@ -1,16 +1,20 @@
 {% extends 'flight/base_flight.html' %}
 {% block type_flight_block %}
-<div>
+<div  class="wrp_links">
+<div class="subtitle ">
     <a href="{% url 'check_departure_flights' 'best_flights'%}">BEST FLIGHTS</a>
   </div>
-    <div>
+    <div class="subtitle">
     <a href="{% url 'check_departure_flights' 'other_flights'%}">OTHER FLIGHTS</a>
   </div>
+  </div>
 {% endblock %}
+ 
 {% block departure_flight_link %}
+ 
   <div>
- <a href="{% url 'departure_flight' forloop.counter0 %}">
-            Get flight
+ <a class="btn btn-outline-secondary m-1 link" href="{% url 'departure_flight' forloop.counter0 %}">
+           SELECT FLIGHT
       </a>
   </div>
  {% endblock %}

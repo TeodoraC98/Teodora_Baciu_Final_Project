@@ -20,7 +20,7 @@ class CustomUser(AbstractUser):
   is_admin = models.BooleanField(default =False)
   is_staff = models.BooleanField(default =False)
   is_superuser = models.BooleanField(default = False)
-  is_customer = models.BooleanField(default = False)
+  is_customer = models.BooleanField(default = True)
   is_employee = models.BooleanField(default = False)
   is_manager = models.BooleanField(default = False)
 
@@ -41,6 +41,9 @@ class CostumerManager(BaseUserManager):
             raise ValueError(_("Please provide an email!"))
         if not password :
             raise ValueError("Please provide a password!")
+        extra_fields.setdefault("is_active", True)
+        extra_fields.setdefault("is_staff", False)
+        extra_fields.setdefault("is_customer", True)
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
@@ -94,7 +97,6 @@ class Costumer(CustomUser):
     def save(self , *args , **kwargs):
         self.type = CustomUser.Types.CUSTOMER
         self.is_customer = True
-        self.groups.add(Group.objects.get(name='Customer'))
         return super().save(*args , **kwargs)
     
     
