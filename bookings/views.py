@@ -17,9 +17,11 @@ list_airports={
 context_flight={
 
 }
+
 context_reservation_detail={
 
 }
+
 def nr_reservation_generator(size=30, chars=string.ascii_uppercase + string.digits):
  return ''.join(random.choice(chars) for _ in range(size))
 
@@ -57,7 +59,6 @@ def strat_reservation(request):
 
 def dictionary_details_flight(reservation_flights):
     dict_flights={}
-    
     for reservation_flight in reservation_flights:
        list_df=[]
        detail_flight=DetailsRout.get_detail_flights_reservation(reservation_flight)
@@ -67,6 +68,8 @@ def dictionary_details_flight(reservation_flights):
        dict_flights[reservation_flight.nr_reservation]=list_df
     return dict_flights
 
+# this function is called when user is selecting a booking
+#  user is redirectid to a page with the details of the booking
 
 def get_details_booking(request,id):
     booking=Reservation.objects.get(id=id)
@@ -83,6 +86,7 @@ def get_details_booking(request,id):
            "booking":booking}
         return  render(request,"bookings/details_booking.html",context=context)
 
+# user can cancel they booking
 def cancel_booking(request,id):
    reservation=Reservation.objects.get(id=id)
    print(reservation)
@@ -90,6 +94,7 @@ def cancel_booking(request,id):
    Payment.cancel_payment(reservation)
    return redirect('details_booking',id)
 
+# a manager can delete the booking
 def delete_booking(request,id):
    reservation=Reservation.objects.get(id=id)
    reservation.delete()

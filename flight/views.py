@@ -7,7 +7,7 @@ import string
 import random
 from dateutil import parser
 from decouple import config
-list_reservation_flights=[]
+
 params={
       "api_key":config('API_KEY'),
       "engine":"google_flights",
@@ -34,6 +34,7 @@ def check_departure_flights(request,type_flight):
        if "departure_token" in params:
         params.pop("departure_token")
        get_flights_details(params)
+
        context={
       "instances_flights":context_flight[type_flight],
         }
@@ -77,6 +78,7 @@ def save_details_flight(flight):
 
 def create_reservation_flight(nr_passangers,price):
    try:
+    list_reservation_flights=[]
     nr_reservation=nr_reservation_generator()
     reservation_flight=Reservation_Flight(nr_reservation=nr_reservation,
                                          nr_passengers=nr_passangers,
@@ -109,7 +111,6 @@ def create_instance_flight(flight):
 
 def create_detail_flight(reservation_flight,obj_select_flight):
   try:
-
    list_objects_details_flight=[]
    for flight in obj_select_flight['flights']:
       instance_flight=create_instance_flight(flight)
