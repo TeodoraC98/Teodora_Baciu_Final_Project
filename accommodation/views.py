@@ -16,8 +16,8 @@ def check_availability_rooms(request):
         "booking":context_reservation_detail.get("booking")
        }
       return render(request,"accommodation/rooms_availability.html",context=context)
-
-
+# getting the details for selected room
+# storage data in context_reservation_detail["booking"]
 def details_room(request,id):
     room=Room.objects.get(id=id)
     packages=Package.get_packages_room_type(room.room_type)

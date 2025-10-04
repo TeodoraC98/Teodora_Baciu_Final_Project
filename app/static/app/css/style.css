@@ -134,6 +134,7 @@ z-index: -1;
 }
 .link{
   display: block;
+  width: 90%;
 }
 .wrp-aside{
     width: 30rem;

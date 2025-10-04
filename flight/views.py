@@ -24,7 +24,7 @@ def get_flights_details(params):
       else:
        response["best_flights"]=0
       context_flight["other_flights"]=response["other_flights"]
-     
+#    
 def check_departure_flights(request,type_flight):
    params["departure_id"]=context_reservation_detail.get("departure_airport"),
    params["outbound_date"]=context_reservation_detail.get("booking").check_in,
@@ -40,7 +40,7 @@ def check_departure_flights(request,type_flight):
         }
        return render(request,"flight/departure_flights.html",context=context)
      
-   
+# param contain the information for getting the data from API
 def get_departure_flight(request,index):
       type_flight=context_flight.get('type_flight')
       obj_flight=context_flight[type_flight][index]
@@ -53,9 +53,10 @@ def get_departure_flight(request,index):
       return render(request,"flight/return_flights.html",context=context)
 
 
-
+# the function in returning the item flight that user selected
 
 def get_return_flights(request,index):
+      # context_flight contain the respon from the API request
       type_flight=context_flight.get('type_flight')
       obj_flight=context_flight[type_flight][index]
       save_details_flight(obj_flight)
@@ -73,9 +74,24 @@ def save_details_flight(flight):
    else:
       return False
 
+# the function is creating the object for DetaisRout
+def create_detail_flight(reservation_flight,obj_select_flight):
+  try:
+   list_objects_details_flight=[]
+   for flight in obj_select_flight['flights']:
+      instance_flight=create_instance_flight(flight)
+      details_flight=DetailsRout(travel_class=flight["travel_class"],
+                             airline=flight["airline"],
+                             reservation_flight=reservation_flight,
+                             flight=instance_flight)
+      list_objects_details_flight.append(details_flight)
+   context_flight[reservation_flight.nr_reservation]=list_objects_details_flight
+  except:
+      print("An exception occurred")
+      return False
 
 
-
+# i creatinf the reservation_flight based on user selection
 def create_reservation_flight(nr_passangers,price):
    try:
     list_reservation_flights=[]
@@ -109,20 +125,6 @@ def create_instance_flight(flight):
       print("An exception occurred")
       return False
 
-def create_detail_flight(reservation_flight,obj_select_flight):
-  try:
-   list_objects_details_flight=[]
-   for flight in obj_select_flight['flights']:
-      instance_flight=create_instance_flight(flight)
-      details_flight=DetailsRout(travel_class=flight["travel_class"],
-                             airline=flight["airline"],
-                             reservation_flight=reservation_flight,
-                             flight=instance_flight)
-      list_objects_details_flight.append(details_flight)
-   context_flight[reservation_flight.nr_reservation]=list_objects_details_flight
-  except:
-      print("An exception occurred")
-      return False
 
 
       

@@ -3,7 +3,7 @@ from django.forms import formset_factory
 from bookings.views import  context_reservation_detail
 from .forms import PassangerForm
 # Create your views here.
-
+# getting passengers data and storage them in context_reservation_detail["object_passengers"]
 def info_passengers(request):
    PassangerFormSet=formset_factory(PassangerForm,extra = context_reservation_detail.get("booking").nr_person)
    if request.method=='POST':
